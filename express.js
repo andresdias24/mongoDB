@@ -3,12 +3,16 @@ var express = require("express")
 var app = express()
 
 var path = require("path")
+var cn = require("./mongo/connection.js")
+app.use("/css", express.static(path.join(__dirname, "css")))
+app.use("/files", express.static(path.join(__dirname, "files")))
 
-app.use("/css", express.static("./node_modeles/boostrap/dist/css"))
-
+app.get("/listarUnProducto", (req, res) => {
+    cn.listar(req, res)
+})
 
 app.get("/", (req, res) => [
-    res.sendFile(path.join(__dirname, "pages/persona.html"))
+    res.sendFile(path.join(__dirname, "pages/persons.html"))
 ])
 
 app.listen("9000", () => {
