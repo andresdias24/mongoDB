@@ -1,6 +1,9 @@
 const mongoose  = require("mongoose");
 var url = "mongodb://localhost:27018/personas";
 var Schema = mongoose.Schema;
+var ObjectId = require('mongodb').ObjectID;
+
+
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, (err, res) => {
     if (err) {
         console.log(err);
@@ -12,7 +15,8 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, (err, r
 var objeto = new Schema({
     nombre: String,
     apellido: String,
-    edad: Number
+    edad: Number,
+    birthday: String
 }, {collection: "personas"});
 
 var Personas = mongoose.model("personas", objeto);
@@ -58,6 +62,26 @@ class productController {
             }
         });
     }
+    getFindId(req, res) {
+        let id = req.params.id;
+        console.log("😆👽🕳👨‍💻 🧬 ~ file: connection.js ~ line 66 ~ id", id)
+        Personas.aggregate([ {$match: {_id: ObjectId(`${id}`)}},
+        {
+            $project: {
+                _id: 1, nombre: 1, apellido: 1, edad: 1, birthday: {
+                    $dateToString: {
+                        format: "%Y-%m-%d",
+                        date: "$fechaDeNacimiento"
+                    }
+                }}
+            }
+        ]).then(data => {
+            res.json(data);
+        }).catch(err => {
+            res.end(err);
+        });
+    }
+    
 }
 
 module.exports = new productController();

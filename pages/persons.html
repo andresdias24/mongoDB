@@ -9,7 +9,34 @@
 </head>
 <body>
      <h1>pages Personas</h1>
+     <button onclick="verFormulario()"> Agregar </button>
     <div id="divProduct"></div>
+    
+    <div style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: aqua;display: none;" id="idFormulario">
+        <div class="col-md-6 m-auto">
+            <h1> Formulario</h1>
+            <div class="form-group">
+                <label>ID</label>
+                <input type="text" class="form-control" id="id" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label>Apellido</label>
+                <input type="text" class="form-control" id="apellido" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label>Edad</label>
+                <input type="number" class="form-control" id="edad" placeholder="ID">
+            </div>
+            <div>
+                <button onclick="enviarFormulario()"> Aceptar</button>
+                <button onclick="ocultarFormularion()"> Regresar</button>
+            </div>
+        </div>
+    </div>
     <script src="../files/index.js"></script>
 </body>
 </html>
