@@ -99,11 +99,31 @@ class productController {
         let nombre = req.body.nombre;
         let apellido = req.body.apellido;
         let edad = req.body.edad;
-        let hoals = Personas.updateOne({ _id: id }, { $set: { nombre: nombre, apellido: apellido, edad: edad } }).then(data => {
+        let person = Personas.updateOne({ _id: id }, { $set: { nombre: nombre, apellido: apellido, edad: edad } }).then(data => {
             res.json({ estado: "actualizado" });
-            console.log("holasas", data);
+            console.log(data);
         })
-        await hoals 
+        await person 
+    }
+   async insertPerson(req, res) {
+        let id = mongoose.Types.ObjectId();
+        let nombre = req.body.nombre;
+        let apellido = req.body.apellido;
+        let edad = req.body.edad;
+
+        let newPerson = new Personas({
+            _id: id,
+            nombre: nombre,
+            apellido: apellido,
+            edad: edad
+        });
+        newPerson.save((err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json(data);
+            }
+        });
     }
 }
 

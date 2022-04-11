@@ -103,27 +103,51 @@ function enviarFormulario() {
     let nombre = document.getElementById("nombre").value;
     let apellido = document.getElementById("apellido").value;
     let edad = document.getElementById("edad").value;
-    if(id=="") {
-        ruta="/insertPerson";
-    } else {
-        ruta = "/actualizarPersona";
+    // validar informacion
+    if (nombre == "" || apellido == "" || edad == "") {
+        alert("Debe completar todos los campos");
+        return;
     }
 
-    fetch(ruta, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            id: id,
-            nombre: nombre,
-            apellido: apellido,
-            edad: edad
+    if(id=="") {
+        ruta="/insertarPersona";
+        fetch(ruta, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: id,
+                nombre: nombre,
+                apellido: apellido,
+                edad: edad
+            })
+        }).then(res => {
+            alert("agregado con exito");
+            listProducto();
+            ocultarFormularion();
+        }).catch(err => {
+            alert("Error al actualizar");
         })
-    }).then(res => {
-        alert("Registro actualizado");
-    }).catch(err => {
-       alert("Error al actualizar");
-    })
-
+    } else {
+        ruta = "/actualizarPersona";
+        fetch(ruta, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: id,
+                nombre: nombre,
+                apellido: apellido,
+                edad: edad
+            })
+        }).then(res => {
+            alert("actualizado correctamente");
+            listProducto();
+            ocultarFormularion();
+        }).catch(err => {
+           alert("Error al actualizar");
+        })
+    }
 }

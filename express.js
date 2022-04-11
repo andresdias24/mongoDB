@@ -21,8 +21,8 @@ app.put("/eliminarPersona/:id",(req,res)=>{
     cn.deleteId(req,res)
 })  //recuperarInformacion))
 
-app.post("/insertPerson", (req, res) => {
-
+app.post("/insertarPersona", (req, res) => {
+    cn.insertPerson(req, res)
 })
 
 app.post("/actualizarPersona", (req, res) => {
